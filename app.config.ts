@@ -28,11 +28,11 @@ const schemeFromBundleId = `manus${timestamp}`;
 
 const env = {
   // App branding - update these values directly (do not use env vars)
-  appName: "BabySteps - Çocuk Gelişimi ve Ebeveyn Takip Uygulaması",
+  appName: "BabySteps",
   appSlug: "babysteps",
   // S3 URL of the app logo - set this to the URL returned by generate_image when creating custom logo
   // Leave empty to use the default icon from assets/images/icon.png
-  logoUrl: "",
+  logoUrl: "https://private-us-east-1.manuscdn.com/sessionFile/0Ye8txjDnksm9yg7XfcfTO/sandbox/csegfhL6JzPke1z0oRMdFW-img-1_1771431541000_na1fn_aWNvbg.png",
   scheme: schemeFromBundleId,
   iosBundleId: bundleId,
   androidPackage: bundleId,
