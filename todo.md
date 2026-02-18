@@ -71,3 +71,13 @@
 - [x] Proje başlatılması (Expo + React Native + TypeScript)
 - [x] Tasarım planı oluşturulması (design.md)
 - [x] TODO listesi oluşturulması
+
+## Faz 4: i18n Çoklu Dil Desteği ve Veri Takibi Özellikleri
+- [x] i18n kurulumu (i18next + react-i18next)
+- [x] Türkçe (tr) ve İngilizce (en) dil dosyaları
+- [x] Ayarlar ekranında dil seçimi (placeholder)
+- [x] Çocuk Profili Ekleme Formu (modal)
+- [x] Gelişim Takibi Grafikleri (Chart.js)
+- [ ] WHO persentil eğrisi entegrasyonu
+- [x] Aşı Takvimi Yönetimi Ekranı
+- [x] Aşı durumu takibi (tamamlandı/beklemede)
