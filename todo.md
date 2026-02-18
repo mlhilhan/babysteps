@@ -167,3 +167,27 @@
 - [x] Seviye Ilerlemesi Göstergesi
 - [ ] Başarı Bildirimleri
 - [ ] Sosyal Paylaşım (Başarıları Paylaş)
+
+## F## Faz 12: Sosyal Payışım Entegrasyonu
+
+- [x] Başarı Payışım Servisi (Instagram, WhatsApp, Email)
+- [x] Başarı Sertifikaşı Oluşturma (Metin, Görsel)
+- [x] Sosyal Payışım Ekranı
+- [ ] Ekran Kaydı Entegrasyonu
+- [ ] Rozet Açma Animasyonu
+- [x] Payışım İstatistikleri
+- [x] Sosyal Medya Entegrasyonu (Share Intent)
+
+
+## Faz 13: Google Ads, Ödeme Entegrasyonu, Pediatrist Takvimi, Beslenme Reçetleri
+
+- [x] Google AdMob Entegrasyonu (Banner, Interstitial, Rewarded)
+- [x] Reklam Gösterimi Kontrolü (Subscription bazlı)
+- [x] Apple In-App Purchase Entegrasyonu
+- [x] Google Play Billing Entegrasyonu
+- [x] Ödeme Yönetimi Backend
+- [x] Pediatrist Takvimi Ekranı
+- [x] Doktor Ziyareti Takibi
+- [x] Beslenme Reçetleri Ekranı
+- [x] Yaşa Uygun Reçetler
+- [x] Reçete Detayları (Malzemeler, Yapılış)
