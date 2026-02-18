@@ -105,3 +105,15 @@
 - [x] Emzirme, mama, ek gıda takibi
 - [x] Besin değerleri ve alerji notları
 - [x] Beslenme geçmişi listesi
+
+## Faz 7: Uyku Takibi, Sağlık Notları, Teslim
+- [x] Uyku Takibi ekranı (uyku süresi, kalitesi, gece uyanışları)
+- [x] Uyku grağiği (haftalık analiz)
+- [x] Uyku notları ve gözlemler
+- [x] Sağlık Notları ekranı (doktor ziyaretleri, iılaçlar)
+- [x] Alerji ve hastalık takibi
+- [x] Genel sağlık gözlemleri
+- [ ] Tüm ekranları Tab bar'a ekle
+- [ ] README.md oluştur (kurulum, özellikler, teknoloji)
+- [ ] Kullanıcı kılavuzu (nasıl kullanılır)
+- [ ] Tüm kaynak kodları hazırla
