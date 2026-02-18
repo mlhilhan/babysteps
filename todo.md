@@ -242,3 +242,19 @@
 - [x] Ödeme Başarı/Başarısızlık Bildirimleri
 - [x] Abonelik Durumu Kontrolü
 - [x] Ödeme Ekranı (subscription-purchase.tsx)
+
+
+## Faz 17: RTL Dil Desteği (Arapça) ve Ödeme Doğrulama Webhook'ları
+
+- [x] RTL Dil Desteği Kurulumu (lib/rtl-support.ts)
+- [x] Arapça için Yazı Yönü Ayarı (Right-to-Left)
+- [x] RTL Layout Bileşenleri (Flex, Margin, Padding)
+- [x] RTL Navigasyon (Tab Bar, Drawer)
+- [x] RTL Modal ve Dialog'lar
+- [x] RTL Text Input ve Form Elemanları
+- [x] Apple Payment Webhook Servisi (server/webhooks.ts)
+- [x] Google Play Billing Webhook Servisi (server/webhooks.ts)
+- [x] Webhook Doğrulama ve Güvenlik
+- [x] Abonelik Durumu Backend Yönetimi
+- [x] Ödeme Başarısızlığı Yönetimi
+- [x] Abonelik Yenileme Otomasyonu
