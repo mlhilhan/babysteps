@@ -93,3 +93,15 @@
 - [x] Push bildirim kurulumu (expo-notifications)
 - [x] Aşı hatırlatcı fonksiyonu
 - [x] Gelişim milestone bildirimi fonksiyonu
+
+## Faz 6: Ayarlar, Premium Abonelik, Beslenme Günlüğü
+- [x] Ayarlar ekranını tamamla (dil seçimi, bildirim ayarları)
+- [x] i18n dil değiştirme fonksiyonalitesi
+- [x] Bildirim tercihlerini AsyncStorage'a kaydet
+- [x] Premium abonelik modeli tasarımı
+- [x] Freemium özellik kısıtlamaları (fotoğraf limiti)
+- [x] Abonelik durumu kontrolü
+- [x] Beslenme Günlüğü ekranı
+- [x] Emzirme, mama, ek gıda takibi
+- [x] Besin değerleri ve alerji notları
+- [x] Beslenme geçmişi listesi
