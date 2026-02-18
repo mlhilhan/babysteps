@@ -154,3 +154,16 @@
 - [x] Push notification tercihlerini geliştirilmiş ayarlar
 - [x] Bildirim kategorileri (aşı, gelişim, beslenme, vb.)
 - [x] Bildirim zamanlaması özelleştirmesi
+
+## Faz 11: Gamifikasyon Sistemi
+
+- [x] Başarı Rozetleri Servisi (İlk aşı, ilk diş, vb.)
+- [x] Seviye Sistemi (XP, Seviye, Başlık)
+- [x] Günlük Görevler Ekranı
+- [x] Ödül Sistemi (Puan, Rozet)
+- [x] Başarı Galerisi Ekranı
+- [ ] Leaderboard (Anonim Sıralama)
+- [x] Rozet Tasarımları (20+ Rozet)
+- [x] Seviye Ilerlemesi Göstergesi
+- [ ] Başarı Bildirimleri
+- [ ] Sosyal Paylaşım (Başarıları Paylaş)
