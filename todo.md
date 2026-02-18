@@ -191,3 +191,25 @@
 - [x] Beslenme Reçetleri Ekranı
 - [x] Yaşa Uygun Reçetler
 - [x] Reçete Detayları (Malzemeler, Yapılış)
+
+
+## Faz 14: 15 Dil Desteği ve Yerel Aşı Takvimlerini Entegre Etme
+
+- [x] 13 Yeni Dil Dosyası Oluştur (Arapça, Almanca, Fransızca, Portekizce, İspanyolca, Çince, Japonca, Korece, Rusça, Hindice, İtalyanca, Hollandaca, İsveçce)
+- [x] Arapça Aşı Takvimi (Suudi Arabistan/WHO)
+- [x] Almanca Aşı Takvimi (Almanya - STIKO)
+- [x] Fransızca Aşı Takvimi (Fransa - Sağlık Bakanlığı)
+- [x] Portekizce Aşı Takvimi (Brezilya - Anvisa)
+- [x] İspanyolca Aşı Takvimi (İspanya - Sağlık Bakanlığı)
+- [x] Çince Aşı Takvimi (Çin - CDSCO)
+- [x] Japonca Aşı Takvimi (Japonya - Sağlık Bakanlığı)
+- [x] Korece Aşı Takvimi (Güney Kore - KDCA)
+- [x] Rusça Aşı Takvimi (Rusya - Sağlık Bakanlığı)
+- [x] Hindice Aşı Takvimi (Hindistan - IAP)
+- [x] İtalyanca Aşı Takvimi (İtalya - Sağlık Bakanlığı)
+- [x] Hollandaca Aşı Takvimi (Hollanda - RIVM)
+- [x] İsveçce Aşı Takvimi (İsveç - Folkhälsomyndigheten)
+- [ ] Beslenme Reçetleri Lokalizasyonu (Her dil için yerel yemekler)
+- [ ] Dil Seçimi UI Güncellemesi (15 dil seçeneği)
+- [x] Default Dil Kontrolü (Desteklenmeyen dilde İngilizce)
+- [ ] RTL Dil Desteği (Arapça için sağ-sol yazı)

@@ -11,7 +11,7 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetime-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 interface DoctorVisit {
   id: string;
@@ -293,7 +293,7 @@ export default function PediatristCalendarScreen() {
                   value={newVisit.date || new Date()}
                   mode="date"
                   display="spinner"
-                  onChange={(event, selectedDate) => {
+                  onChange={(event: any, selectedDate?: Date) => {
                     if (selectedDate) {
                       setNewVisit({ ...newVisit, date: selectedDate });
                     }
