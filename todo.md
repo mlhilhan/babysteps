@@ -81,3 +81,15 @@
 - [ ] WHO persentil eğrisi entegrasyonu
 - [x] Aşı Takvimi Yönetimi Ekranı
 - [x] Aşı durumu takibi (tamamlandı/beklemede)
+
+## Faz 5: Anı Defteri, AI Asistanı, Push Bildirimler
+- [x] Anı Defteri ekranı (memory-journal.tsx)
+- [x] Fotoğraf/video yükleme (expo-image-picker)
+- [x] Base64 ile resim depolama
+- [x] Tarih bazlı galeri görünümü
+- [x] AI Asistanı ekranı (ai-assistant.tsx)
+- [x] Chat arayüzü ve mesaj gösterimi
+- [x] Örnek soruları göster
+- [x] Push bildirim kurulumu (expo-notifications)
+- [x] Aşı hatırlatcı fonksiyonu
+- [x] Gelişim milestone bildirimi fonksiyonu
