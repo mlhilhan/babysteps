@@ -228,3 +228,17 @@
 - [x] Stripe Multi-Currency Entegrasyonu (Fonksiyonlar)
 - [x] Apple In-App Purchase Multi-Currency (Fonksiyonlar)
 - [x] Google Play Billing Multi-Currency (Fonksiyonlar)
+
+
+## Faz 16: Apple Pay/Google Play Entegrasyonu ve Multi-Currency Ödeme
+
+- [x] Abonelik Paketlerini Yeniden Adlandırma (Premium Plus → Pro, Premium → Plus)
+- [x] Yeni Fiyatlandırma Tablosu (TRY ve USD)
+- [x] Diğer Para Birimlerine USD'ye Göre Endeksleme
+- [x] Apple Pay Entegrasyonu (Fonksiyonlar)
+- [x] Google Play Billing Entegrasyonu (Fonksiyonlar)
+- [x] Ödeme İşleme ve Doğrulama
+- [x] Abonelik Yönetimi (Yenileme, İptal, Geri Ödeme)
+- [x] Ödeme Başarı/Başarısızlık Bildirimleri
+- [x] Abonelik Durumu Kontrolü
+- [x] Ödeme Ekranı (subscription-purchase.tsx)
