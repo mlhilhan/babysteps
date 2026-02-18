@@ -213,3 +213,18 @@
 - [ ] Dil Seçimi UI Güncellemesi (15 dil seçeneği)
 - [x] Default Dil Kontrolü (Desteklenmeyen dilde İngilizce)
 - [ ] RTL Dil Desteği (Arapça için sağ-sol yazı)
+
+
+## Faz 15: Çocuk Güvenliği Ekranı ve Multi-Currency Ödeme Sistemi
+
+- [x] Çocuk Güvenliği Ekranı (child-safety.tsx)
+- [x] Acil Durum Kontakları Yönetimi
+- [x] Tıbbi Bilgiler (Kan Grubu, Alerji, Kronik Hastalıklar)
+- [x] QR Kod Oluşturma ve Payışma (Placeholder)
+- [ ] QR Kod Tarama (Hızlı Erişim)
+- [x] Multi-Currency Sistemi (lib/currency.ts)
+- [x] 15 Ülke Para Birimi Dönüşümü
+- [x] Abonelik Fiyatlandırması Güncellemesi (Yerel Para)
+- [x] Stripe Multi-Currency Entegrasyonu (Fonksiyonlar)
+- [x] Apple In-App Purchase Multi-Currency (Fonksiyonlar)
+- [x] Google Play Billing Multi-Currency (Fonksiyonlar)
