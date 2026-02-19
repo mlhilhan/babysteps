@@ -30,7 +30,8 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
+# local env files (yerel .env repo'ya gitmesin; Railway kendi Variables kullanır)
+.env
 .env*.local
 
 # typescript

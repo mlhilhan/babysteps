@@ -59,11 +59,11 @@ async function main() {
         console.error(
           "[railway-start] Migration failed after",
           MAX_ATTEMPTS,
-          "attempts."
+          "attempts. Deploy aborted (migration is required)."
         );
         if (isRefused) {
           console.error(
-            "\n>>> FIX: In Railway Dashboard → Backend service → Variables:\n    Set DATABASE_URL = Reference from Postgres → DATABASE_PRIVATE_URL (not DATABASE_URL).\n    Private URL is required for container-to-database connection.\n"
+            "\n>>> FIX: Backend container cannot reach Postgres (ECONNREFUSED).\n    Railway Dashboard → Backend service → Variables → set DATABASE_URL = Reference from Postgres → DATABASE_PRIVATE_URL (not DATABASE_URL/DATABASE_PUBLIC_URL).\n    Private URL is required for container-to-database connection.\n"
           );
         }
         process.exit(1);

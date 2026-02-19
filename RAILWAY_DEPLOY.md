@@ -105,7 +105,26 @@ Sorun yaşarsanız Railway **Deploy Logs** ve **Build Logs** üzerinden hata mes
 
 ---
 
-## 7. ECONNREFUSED (Migration / veritabanı bağlantı hatası)
+## 7. Migration neden zorunlu ve neden başarısız oluyor?
+
+**Migration neden zorunlu?**  
+Tablo şeması (users, childProfiles, vb.) veritabanında yoksa API istekleri hata verir. Her deploy’da `drizzle-kit migrate` ile bekleyen migration’lar uygulanmalı; bu yüzden start komutu önce migration çalıştırır, başarısız olursa container başlamaz (doğru davranış).
+
+**Migration neden ECONNREFUSED ile başarısız oluyor?**  
+Backend container, PostgreSQL’e bağlanmak için `DATABASE_URL` kullanıyor. Railway’de iki tür URL vardır:
+
+| URL türü | Kullanım | Container içinden erişim |
+|----------|----------|---------------------------|
+| **Public** (`DATABASE_URL` / `DATABASE_PUBLIC_URL`) | Dışarıdan (örn. yerelde pgAdmin, CLI) | ❌ Container içinden **erişilemez** → ECONNREFUSED |
+| **Private** (`DATABASE_PRIVATE_URL`) | Aynı projedeki servisler (backend → Postgres) | ✅ Sadece bu çalışır |
+
+Backend’de `DATABASE_URL` olarak **public** URL (veya Postgres’in `DATABASE_URL` referansı, eski kurulumlarda public olabiliyor) kullanılıyorsa, container içinden veritabanına bağlanılamaz; bağlantı reddedilir ve migration **ECONNREFUSED** ile düşer.
+
+**Çözüm:** Backend servisinde `DATABASE_URL` değişkeni, PostgreSQL servisinden **DATABASE_PRIVATE_URL** referansı olmalı (aşağıda adımlar).
+
+---
+
+## 8. ECONNREFUSED alıyorsanız (adımlar)
 
 Container başlarken **ECONNREFUSED** alıyorsanız, backend veritabanına **erişemiyor**. Railway’de servisler birbirine **sadece private network** üzerinden bağlanır; public URL container içinden çalışmaz.
 
