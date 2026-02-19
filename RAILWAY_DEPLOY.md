@@ -94,7 +94,7 @@ Böylece mobil uygulama ve web, production backend’inize istek atar.
 ## 6. Özet kontrol listesi
 
 - [ ] Railway’de yeni proje, repo bağlandı
-- [ ] PostgreSQL eklendi, `DATABASE_URL` backend servisine referans olarak verildi
+- [ ] PostgreSQL eklendi, backend’de `DATABASE_URL` = **DATABASE_PRIVATE_URL** referansı verildi
 - [ ] `JWT_SECRET` (ve gerekirse OAuth değişkenleri) tanımlandı
 - [ ] Build / Start / Pre-deploy (railway.toml veya Dashboard) doğru
 - [ ] Domain üretildi, backend URL’i alındı
@@ -102,3 +102,27 @@ Böylece mobil uygulama ve web, production backend’inize istek atar.
 - [ ] OAuth kullanılıyorsa Manus’ta redirect URI güncellendi
 
 Sorun yaşarsanız Railway **Deploy Logs** ve **Build Logs** üzerinden hata mesajlarını kontrol edin; `DATABASE_URL` veya `JWT_SECRET` eksikse genelde orada görünür.
+
+---
+
+## 7. ECONNREFUSED (Migration / veritabanı bağlantı hatası)
+
+Container başlarken **ECONNREFUSED** alıyorsanız, backend veritabanına **erişemiyor**. Railway’de servisler birbirine **sadece private network** üzerinden bağlanır; public URL container içinden çalışmaz.
+
+**Yapmanız gerekenler:**
+
+1. Railway Dashboard → **PostgreSQL** servisinize tıklayın.
+2. **Variables** sekmesinde şunlara bakın:
+   - **DATABASE_URL** – çoğu zaman public (dışarıdan bağlantı)
+   - **DATABASE_PRIVATE_URL** veya **PGPRIVATEURL** – private (container’lar arası)
+3. **Backend** (repo’dan deploy ettiğiniz) servisine gidin → **Variables**.
+4. **DATABASE_URL** satırını bulun. Şu an muhtemelen:
+   - `${{Postgres.DATABASE_URL}}`  
+   veya benzeri bir **public** referans.
+5. Bunu **private** referansla değiştirin:
+   - Değişken adı: `DATABASE_URL`
+   - Değer: `${{Postgres.DATABASE_PRIVATE_URL}}`  
+   (PostgreSQL servis adınız farklıysa, örn. `PostgreSQL` ise: `${{PostgreSQL.DATABASE_PRIVATE_URL}}`)
+6. Kaydedin; Railway yeniden deploy alacaktır.
+
+Referans eklemek için: Backend → Variables → **New Variable** → **Add Reference** → PostgreSQL servisini seçin → **DATABASE_PRIVATE_URL**’i seçin → Variable name olarak **DATABASE_URL** yazın. Eski `DATABASE_URL` referansını silip yerine bunu koyun.

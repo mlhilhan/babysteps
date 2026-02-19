@@ -6,5 +6,5 @@
 buildCommand = "npm install --include=dev && npm run build"
 
 [deploy]
-# Migration'ı start'ta çalıştır (pre-deploy ayrı container'da DATABASE_URL/network sorun çıkarabiliyor)
-startCommand = "npm run db:migrate && npm start"
+# Migration'ı birkaç kez dene (Postgres geç ayağa kalkabiliyor), sonra sunucuyu başlat
+startCommand = "node scripts/railway-start.mjs"
