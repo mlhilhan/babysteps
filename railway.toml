@@ -1,0 +1,12 @@
+# Railway - Backend + PostgreSQL deploy ayarları
+# https://docs.railway.app/reference/config-as-code
+
+[build]
+# Bağımlılıkları yükle (devDependencies dahil - migration için drizzle-kit gerekli)
+buildCommand = "npm install --include=dev && npm run build"
+
+[deploy]
+# Her deploy öncesi bekleyen migration'ları çalıştır
+preDeployCommand = "npm run db:migrate"
+# Production sunucuyu başlat (PORT Railway tarafından verilir)
+startCommand = "npm start"
