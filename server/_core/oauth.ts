@@ -96,6 +96,36 @@ export function registerOAuthRoutes(app: Express) {
     }
   });
 
+  // Dev-only: OAuth atlamak için yerelde test oturumu açar (NODE_ENV=development + DEV_AUTH_OPEN_ID)
+  if (process.env.NODE_ENV === "development" && process.env.DEV_AUTH_OPEN_ID) {
+    app.get("/api/auth/dev-login", async (req: Request, res: Response) => {
+      const openId = process.env.DEV_AUTH_OPEN_ID!;
+      try {
+        await syncUser({
+          openId,
+          name: "Dev User (Local)",
+          email: null,
+          loginMethod: "dev",
+          platform: "dev",
+        });
+        const sessionToken = await sdk.createSessionToken(openId, {
+          name: "Dev User (Local)",
+          expiresInMs: ONE_YEAR_MS,
+        });
+        const cookieOptions = getSessionCookieOptions(req);
+        res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+        const frontendUrl =
+          process.env.EXPO_WEB_PREVIEW_URL ||
+          process.env.EXPO_PACKAGER_PROXY_URL ||
+          "http://localhost:8081";
+        res.redirect(302, frontendUrl);
+      } catch (error) {
+        console.error("[OAuth] Dev login failed", error);
+        res.status(500).json({ error: "Dev login failed" });
+      }
+    });
+  }
+
   app.get("/api/oauth/mobile", async (req: Request, res: Response) => {
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
