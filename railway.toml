@@ -6,7 +6,5 @@
 buildCommand = "npm install --include=dev && npm run build"
 
 [deploy]
-# Her deploy öncesi bekleyen migration'ları çalıştır
-preDeployCommand = "npm run db:migrate"
-# Production sunucuyu başlat (PORT Railway tarafından verilir)
-startCommand = "npm start"
+# Migration'ı start'ta çalıştır (pre-deploy ayrı container'da DATABASE_URL/network sorun çıkarabiliyor)
+startCommand = "npm run db:migrate && npm start"

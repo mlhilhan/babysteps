@@ -18,7 +18,7 @@ Bu rehber, BabySteps backend API’nizi ve PostgreSQL veritabanınızı **Railwa
      Railway otomatik olarak `DATABASE_URL` değişkenini oluşturur ve servise bağlar.
 4. Ana servisiniz (backend) zaten “repo’dan gelen” servis olacak. PostgreSQL’i bu servise **bağlamak** için:
    - Backend servisine tıklayın → **Variables** → **Add variable** veya **Reference**
-   - PostgreSQL servisinin **Variables** kısmından `DATABASE_URL`’i **Referenced Variable** olarak ekleyin (örn. `DATABASE_URL` = `${{Postgres.DATABASE_URL}}`)
+   - PostgreSQL servisinin **Variables** kısmından `DATABASE_URL`’i **Referenced Variable** olarak ekleyin (örn. `DATABASE_URL` = `${{Postgres.DATABASE_PRIVATE_URL}}` — **private** URL zorunlu, yoksa ECONNREFUSED alırsınız)
 
 ---
 
@@ -45,7 +45,7 @@ Backend servisi → **Variables** bölümünde en az şunları ayarlayın:
 
 | Değişken | Zorunlu | Açıklama |
 |----------|---------|----------|
-| `DATABASE_URL` | Evet | PostgreSQL bağlantı dizini (Postgres servisinden referans alın) |
+| `DATABASE_URL` | Evet | **Private** PostgreSQL URL (referans: `${{Postgres.DATABASE_PRIVATE_URL}}`). Public URL container içinde ECONNREFUSED verebilir. |
 | `JWT_SECRET` | Evet (OAuth/oturum için) | Güçlü, rastgele bir string (oturum cookie imzası) |
 | `NODE_ENV` | Otomatik | Railway production’da `production` yapar |
 
@@ -56,7 +56,7 @@ Backend servisi → **Variables** bölümünde en az şunları ayarlayın:
 
 İsteğe bağlı: `BUILT_IN_FORGE_API_URL`, `BUILT_IN_FORGE_API_KEY`, `OPENAI_API_KEY` vb.
 
-**Not:** `DATABASE_URL`’i PostgreSQL servisinden “Referenced Variable” olarak eklediyseniz ayrıca manuel girmeniz gerekmez.
+**Not:** `DATABASE_URL`’i PostgreSQL servisinden “Referenced Variable” olarak eklediyseniz Backend'de DATABASE_URL = DATABASE_PRIVATE_URL referansı olmalı (private network).
 
 ---
 
