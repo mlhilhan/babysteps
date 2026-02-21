@@ -123,17 +123,56 @@ export async function logout(): Promise<void> {
   });
 }
 
-// Get current authenticated user (web uses cookie-based auth)
-export async function getMe(): Promise<{
+// Login with email/password
+export async function login(
+  email: string,
+  password: string,
+): Promise<{ token: string; user: ApiUser }> {
+  const result = await apiCall<{ token: string; user: ApiUser }>("/api/auth/login", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
+  return result;
+}
+
+// Register with email, password, optional name
+export async function register(
+  email: string,
+  password: string,
+  name?: string,
+): Promise<{ token: string; user: ApiUser }> {
+  const result = await apiCall<{ token: string; user: ApiUser }>("/api/auth/register", {
+    method: "POST",
+    body: JSON.stringify({ email, password, name: name || undefined }),
+  });
+  return result;
+}
+
+// Refresh JWT (e.g. before expiry)
+export async function refreshToken(): Promise<{ token: string; user: ApiUser } | null> {
+  try {
+    const result = await apiCall<{ token: string; user: ApiUser }>("/api/auth/refresh", {
+      method: "POST",
+    });
+    return result;
+  } catch {
+    return null;
+  }
+}
+
+export type ApiUser = {
   id: number;
   openId: string;
   name: string | null;
   email: string | null;
   loginMethod: string | null;
   lastSignedIn: string;
-} | null> {
+};
+
+// Get current authenticated user
+export async function getMe(): Promise<ApiUser | null> {
   try {
-    const result = await apiCall<{ user: any }>("/api/auth/me");
+    const result = await apiCall<{ user: ApiUser | null }>("/api/auth/me");
     return result.user || null;
   } catch (error) {
     console.error("[API] getMe failed:", error);

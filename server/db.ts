@@ -112,6 +112,46 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
+export async function getUserById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+/** Local auth: user with openId = "local:"+email */
+export async function getUserByLocalEmail(email: string) {
+  const normalized = email.trim().toLowerCase();
+  return getUserByOpenId(`local:${normalized}`);
+}
+
+export async function createUser(data: {
+  email: string;
+  name: string | null;
+  passwordHash: string;
+}): Promise<NonNullable<Awaited<ReturnType<typeof getUserByOpenId>>>> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const email = data.email.trim().toLowerCase();
+  const openId = `local:${email}`;
+  await db.insert(users).values({
+    openId,
+    email,
+    name: data.name ?? null,
+    loginMethod: "email",
+    passwordHash: data.passwordHash,
+  });
+  const user = await getUserByOpenId(openId);
+  if (!user) throw new Error("Failed to load created user");
+  return user;
+}
+
+export async function updateUserLastSignedIn(userId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(users).set({ lastSignedIn: new Date() }).where(eq(users.id, userId));
+}
+
 // ========== CHILD PROFILES ==========
 
 export async function createChildProfile(data: InsertChildProfile) {

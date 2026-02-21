@@ -1,16 +1,12 @@
 import { useAuth } from "@/hooks/use-auth";
 import { useColors } from "@/hooks/use-colors";
 import { ScreenContainer } from "@/components/screen-container";
-import { useRouter } from "expo-router";
+import { useRouter, Link } from "expo-router";
 import { useEffect } from "react";
 import { ScrollView, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
-import * as WebBrowser from "expo-web-browser";
-import * as Linking from "expo-linking";
-
-WebBrowser.maybeCompleteAuthSession();
 
 export default function OnboardingScreen() {
-  const { isAuthenticated, loading, user } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
   const colors = useColors();
 
@@ -18,26 +14,7 @@ export default function OnboardingScreen() {
     if (!loading && isAuthenticated) {
       router.replace("/(tabs)");
     }
-  }, [isAuthenticated, loading]);
-
-  const handleLogin = async () => {
-    try {
-      // OAuth login URL - bu URL app.config.ts'deki scheme ile eşleşmelidir
-      const scheme = "manus20260218111443"; // app.config.ts'deki schemeFromBundleId
-      const redirectUrl = Linking.createURL("/oauth/callback");
-      
-      const loginUrl = `https://auth.manus.im/oauth/authorize?client_id=babysteps&redirect_uri=${encodeURIComponent(redirectUrl)}&response_type=code&scope=openid%20profile%20email`;
-      
-      const result = await WebBrowser.openAuthSessionAsync(loginUrl, redirectUrl);
-      
-      if (result.type === "success") {
-        // OAuth callback tarafından işlenecek
-        router.replace("/(tabs)");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
+  }, [isAuthenticated, loading, router]);
 
   if (loading) {
     return (
@@ -91,13 +68,22 @@ export default function OnboardingScreen() {
 
           {/* CTA Buttons */}
           <View className="gap-3">
-            <TouchableOpacity
-              onPress={handleLogin}
-              className="bg-primary rounded-full py-4 items-center"
-              activeOpacity={0.8}
-            >
-              <Text className="text-white font-semibold text-lg">Giriş Yap / Kaydol</Text>
-            </TouchableOpacity>
+            <Link href="/login" asChild>
+              <TouchableOpacity
+                className="bg-primary rounded-full py-4 items-center"
+                activeOpacity={0.8}
+              >
+                <Text className="text-white font-semibold text-lg">Giriş Yap</Text>
+              </TouchableOpacity>
+            </Link>
+            <Link href="/register" asChild>
+              <TouchableOpacity
+                className="bg-surface border border-border rounded-full py-4 items-center"
+                activeOpacity={0.8}
+              >
+                <Text className="text-foreground font-semibold text-lg">Kayıt Ol</Text>
+              </TouchableOpacity>
+            </Link>
 
             <Text className="text-xs text-muted text-center">
               Devam ederek, Gizlilik Politikası ve Hizmet Şartlarını kabul etmiş olursunuz
