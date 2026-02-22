@@ -3,7 +3,8 @@
 
 [build]
 # Bağımlılıkları yükle (devDependencies dahil - migration için drizzle-kit gerekli)
-buildCommand = "npm install --include=dev && npm run build"
+# --no-frozen-lockfile: CI'da lockfile package.json ile senkron değilse build yine de geçer (lockfile güncellenir)
+buildCommand = "pnpm install --no-frozen-lockfile && pnpm run build"
 
 [deploy]
 # Migration'ı birkaç kez dene (Postgres geç ayağa kalkabiliyor), sonra sunucuyu başlat
