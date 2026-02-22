@@ -1,0 +1,7 @@
+# Railway/Nixpacks: install aşamasında lockfile uyumsuzluğunda hata vermesin
+# https://docs.railway.app/guides/build-configuration
+[phases.install]
+cmds = ["pnpm install --no-frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm run build"]
