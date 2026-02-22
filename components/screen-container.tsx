@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export interface ScreenContainerProps extends ViewProps {
   /**
    * SafeArea edges to apply. Defaults to ["top", "left", "right"].
-   * Bottom is typically handled by Tab Bar.
+   * Tab bar olmayan ekranlarda (login, onboarding vb.) Android için edges={["top","left","right","bottom"]} kullanın.
    */
   edges?: Edge[];
   /**

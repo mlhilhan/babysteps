@@ -140,13 +140,6 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          {/* Tips Section */}
-          <View className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 gap-2">
-            <Text className="font-semibold text-foreground">💡 Günün İpucu</Text>
-            <Text className="text-sm text-muted leading-relaxed">
-              Çocuğunuzun uyku düzeni düzenli tutmak, gelişimi için çok önemlidir. Her gün aynı saatlerde yatırıp kaldırmaya çalışın.
-            </Text>
-          </View>
         </View>
       </ScrollView>
     </ScreenContainer>

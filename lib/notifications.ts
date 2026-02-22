@@ -1,19 +1,33 @@
-import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
+import Constants from "expo-constants";
 
-// Bildirim davranışını ayarla
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-    shouldShowBanner: true,
-    shouldShowList: true,
-  } as any),
-});
+// Expo Go'da push bildirimleri SDK 53+ kaldırıldı; development build gerekir
+const isExpoGo = Constants.appOwnership === "expo";
+
+let Notifications: typeof import("expo-notifications") | null = null;
+if (!isExpoGo) {
+  try {
+    Notifications = require("expo-notifications");
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+        shouldShowBanner: true,
+        shouldShowList: true,
+      } as any),
+    });
+  } catch (e) {
+    console.warn("[notifications] Expo Go veya build kısıtı:", e);
+    Notifications = null;
+  }
+}
 
 export async function registerForPushNotificationsAsync() {
+  if (isExpoGo || !Notifications) {
+    return;
+  }
   if (!Device.isDevice) {
     console.log("Must use physical device for push notifications");
     return;
@@ -63,6 +77,7 @@ export async function scheduleVaccinationReminder(
   vaccineName: string,
   daysFromNow: number
 ) {
+  if (!Notifications) return;
   try {
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -89,6 +104,7 @@ export async function sendMilestoneNotification(
   milestoneName: string,
   description: string
 ) {
+  if (!Notifications) return;
   try {
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -117,6 +133,7 @@ export async function scheduleDailyReminder(
   hour: number = 9,
   minute: number = 0
 ) {
+  if (!Notifications) return;
   try {
     const now = new Date();
     const scheduledTime = new Date();
@@ -153,6 +170,7 @@ export async function scheduleDailyReminder(
  * Tüm bildirimleri iptal et
  */
 export async function cancelAllNotifications() {
+  if (!Notifications) return;
   try {
     await Notifications.cancelAllScheduledNotificationsAsync();
   } catch (error) {
@@ -164,6 +182,7 @@ export async function cancelAllNotifications() {
  * Belirli bir bildirimi iptal et
  */
 export async function cancelNotification(notificationId: string) {
+  if (!Notifications) return;
   try {
     await Notifications.cancelScheduledNotificationAsync(notificationId);
   } catch (error) {

@@ -67,7 +67,9 @@ export function registerLocalAuthRoutes(app: import("express").Express) {
         user: buildUserResponse(user),
       });
     } catch (err) {
-      console.error("[Auth] Register failed:", err);
+      const message = err instanceof Error ? err.message : String(err);
+      const stack = err instanceof Error ? err.stack : undefined;
+      console.error("[Auth] Register failed:", message, stack ?? "");
       res.status(500).json({ error: "Registration failed" });
     }
   });
@@ -102,7 +104,9 @@ export function registerLocalAuthRoutes(app: import("express").Express) {
         user: buildUserResponse(user),
       });
     } catch (err) {
-      console.error("[Auth] Login failed:", err);
+      const message = err instanceof Error ? err.message : String(err);
+      const stack = err instanceof Error ? err.stack : undefined;
+      console.error("[Auth] Login failed:", message, stack ?? "");
       res.status(500).json({ error: "Login failed" });
     }
   });

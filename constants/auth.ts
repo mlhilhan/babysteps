@@ -29,3 +29,5 @@ export function getApiBaseUrl(): string {
 
 export const SESSION_TOKEN_KEY = "app_session_token";
 export const USER_INFO_KEY = "app_user_info";
+/** İlk açılışta onboarding gösterildi mi (AsyncStorage) */
+export const ONBOARDING_SEEN_KEY = "onboarding_seen";

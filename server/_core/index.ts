@@ -1,4 +1,5 @@
 import "dotenv/config";
+import path from "path";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
@@ -6,6 +7,8 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerLocalAuthRoutes } from "./localAuthRoutes";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
+import { getDb } from "../db";
+import { migrate } from "drizzle-orm/node-postgres/migrator";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise((resolve) => {
@@ -24,6 +27,15 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
     }
   }
   throw new Error(`No available port found starting from ${startPort}`);
+}
+
+async function runMigrations() {
+  if (!process.env.DATABASE_URL) return;
+  const db = await getDb();
+  if (!db) return;
+  const migrationsFolder = path.join(process.cwd(), "drizzle");
+  await migrate(db, { migrationsFolder });
+  console.log("[api] migrations completed");
 }
 
 async function startServer() {
@@ -80,4 +92,6 @@ async function startServer() {
   });
 }
 
-startServer().catch(console.error);
+runMigrations()
+  .then(() => startServer())
+  .catch(console.error);

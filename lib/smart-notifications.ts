@@ -1,5 +1,12 @@
-import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+function getNotifications(): typeof import("expo-notifications") | null {
+  try {
+    return require("expo-notifications");
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Smart Notification Service
@@ -175,7 +182,8 @@ export async function sendSmartNotification(
       return false;
     }
 
-    // Send notification
+    const Notifications = getNotifications();
+    if (!Notifications) return false;
     await Notifications.scheduleNotificationAsync({
       content: {
         title,
@@ -205,6 +213,8 @@ export async function scheduleRecurringNotification(
   time: string,
   daysOfWeek?: number[]
 ): Promise<string | null> {
+  const Notifications = getNotifications();
+  if (!Notifications) return null;
   try {
     const [hour, minute] = time.split(":").map(Number);
 
