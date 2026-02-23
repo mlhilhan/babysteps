@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "अपने बच्चे की विकास यात्रा को ट्रैक करें"
   },
+  "tabs": {
+    "home": "होम",
+    "settings": "सेटिंग्स",
+    "growth": "विकास",
+    "vaccination": "टीकाकरण",
+    "nutrition": "पोषण",
+    "sleep": "नींद",
+    "health": "स्वास्थ्य",
+    "memories": "यादें",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "स्वागत है",
     "subtitle": "अपने बच्चे की विकास यात्रा को ट्रैक करें",
@@ -59,7 +70,8 @@
     "premium": "प्रीमियम में अपग्रेड",
     "premium_desc": "असीमित फोटो स्टोरेज, AI असिस्टेंट और PDF रिपोर्ट अनलॉक करें।",
     "upgrade": "प्रीमियम में अपग्रेड",
-    "logout": "साइन आउट"
+    "logout": "साइन आउट",
+    "language_label": "भाषा"
   },
   "add_child": {
     "title": "बच्चा जोड़ें",

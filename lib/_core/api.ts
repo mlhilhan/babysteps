@@ -61,13 +61,28 @@ export async function apiCall<T>(endpoint: string, options: RequestInit = {}): P
       const errorText = await response.text();
       console.error("[API] Error response:", errorText);
       let errorMessage = errorText;
+      let errorCode: string | undefined;
       try {
-        const errorJson = JSON.parse(errorText);
+        const errorJson = JSON.parse(errorText) as { error?: string; message?: string; code?: string };
         errorMessage = errorJson.error || errorJson.message || errorText;
+        errorCode = errorJson.code;
       } catch {
         // Not JSON, use text as is
       }
-      throw new Error(errorMessage || `API call failed: ${response.statusText}`);
+      // Fallback: backend may not send code yet; infer from message or status
+      if (!errorCode && errorMessage) {
+        const msg = errorMessage.toLowerCase();
+        if (msg.includes("invalid") && (msg.includes("email") || msg.includes("password")))
+          errorCode = "INVALID_EMAIL_OR_PASSWORD";
+        else if (msg.includes("already exists")) errorCode = "EMAIL_ALREADY_EXISTS";
+        else if (msg.includes("required") && msg.includes("email")) errorCode = "EMAIL_PASSWORD_REQUIRED";
+        else if (msg.includes("at least 6")) errorCode = "PASSWORD_TOO_SHORT";
+      }
+      if (!errorCode && response.status === 401) errorCode = "INVALID_EMAIL_OR_PASSWORD";
+      if (!errorCode && response.status === 409) errorCode = "EMAIL_ALREADY_EXISTS";
+      const err = new Error(errorMessage || `API call failed: ${response.statusText}`) as Error & { code?: string };
+      err.code = errorCode;
+      throw err;
     }
 
     const contentType = response.headers.get("content-type");

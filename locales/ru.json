@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "Отслеживайте рост вашего ребёнка"
   },
+  "tabs": {
+    "home": "Главная",
+    "settings": "Настройки",
+    "growth": "Рост",
+    "vaccination": "Прививки",
+    "nutrition": "Питание",
+    "sleep": "Сон",
+    "health": "Здоровье",
+    "memories": "Воспоминания",
+    "ai": "ИИ"
+  },
   "onboarding": {
     "welcome": "Добро пожаловать",
     "subtitle": "Отслеживайте рост вашего ребёнка",
@@ -59,7 +70,8 @@
     "premium": "Перейти на Premium",
     "premium_desc": "Безлимитное хранилище фото, ИИ-помощник и отчёты в PDF.",
     "upgrade": "Перейти на Premium",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "language_label": "Язык"
   },
   "add_child": {
     "title": "Добавить ребёнка",

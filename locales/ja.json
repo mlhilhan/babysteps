@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "お子様の成長の旅を記録"
   },
+  "tabs": {
+    "home": "ホーム",
+    "settings": "設定",
+    "growth": "成長",
+    "vaccination": "予防接種",
+    "nutrition": "栄養",
+    "sleep": "睡眠",
+    "health": "健康",
+    "memories": "思い出",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "ようこそ",
     "subtitle": "お子様の成長の旅を記録",
@@ -59,7 +70,8 @@
     "premium": "プレミアムにアップグレード",
     "premium_desc": "無制限の写真保存、AIアシスタント、PDFレポート機能をご利用いただけます。",
     "upgrade": "プレミアムにアップグレード",
-    "logout": "ログアウト"
+    "logout": "ログアウト",
+    "language_label": "言語"
   },
   "add_child": {
     "title": "子どもを追加",

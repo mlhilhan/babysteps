@@ -1,3 +1,4 @@
+import { useAppAlert } from "@/contexts/app-alert-context";
 import { useAuth } from "@/hooks/use-auth";
 import { useColors } from "@/hooks/use-colors";
 import { useTranslation } from "@/hooks/use-i18n";
@@ -10,10 +11,34 @@ import {
   View,
   TouchableOpacity,
   Switch,
-  Alert,
   ActivityIndicator,
+  Modal,
+  Pressable,
+  FlatList,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const SUPPORTED_LANGUAGES = [
+  "tr", "en", "ar", "de", "es", "fr", "hi", "it", "ja", "ko", "nl", "pt", "ru", "sv", "zh",
+] as const;
+
+const LANGUAGE_FLAGS: Record<string, string> = {
+  tr: "🇹🇷",
+  en: "🇬🇧",
+  ar: "🇸🇦",
+  de: "🇩🇪",
+  es: "🇪🇸",
+  fr: "🇫🇷",
+  hi: "🇮🇳",
+  it: "🇮🇹",
+  ja: "🇯🇵",
+  ko: "🇰🇷",
+  nl: "🇳🇱",
+  pt: "🇵🇹",
+  ru: "🇷🇺",
+  sv: "🇸🇪",
+  zh: "🇨🇳",
+};
 
 interface NotificationSettings {
   vaccineReminders: boolean;
@@ -23,6 +48,7 @@ interface NotificationSettings {
 }
 
 export default function SettingsScreen() {
+  const { showAlert } = useAppAlert();
   const { t, i18n, changeLanguage } = useTranslation();
   const router = useRouter();
   const colors = useColors();
@@ -38,6 +64,9 @@ export default function SettingsScreen() {
 
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
+
+  const currentLanguage = SUPPORTED_LANGUAGES.find((l) => i18n.language?.startsWith(l)) ?? "tr";
 
   useEffect(() => {
     loadSettings();
@@ -69,7 +98,7 @@ export default function SettingsScreen() {
       );
       setNotificationSettings(newSettings);
     } catch (error) {
-      Alert.alert(t("common.error"), "Ayarlar kaydedilirken hata oluştu");
+      showAlert({ title: t("common.error"), message: t("settings.save_settings_error") });
     }
   };
 
@@ -82,51 +111,54 @@ export default function SettingsScreen() {
   };
 
   const handleChangeLanguage = async (lang: string) => {
+    setLanguageModalVisible(false);
     try {
       await changeLanguage(lang);
-      Alert.alert(t("common.success"), `Dil ${lang === "tr" ? "Türkçe" : "English"} olarak değiştirildi`);
     } catch (error) {
-      Alert.alert(t("common.error"), "Dil değiştirilirken hata oluştu");
+      showAlert({ title: t("common.error"), message: t("settings.language_change_error") });
     }
   };
 
   const handleLogout = () => {
-    Alert.alert(t("settings.logout"), "Çıkış yapmak istediğinizden emin misiniz?", [
-      { text: t("common.cancel"), onPress: () => {} },
-      {
-        text: t("common.yes"),
-        onPress: async () => {
-          try {
-            await logout();
-            router.replace("/onboarding");
-          } catch (error) {
-            Alert.alert(t("common.error"), "Çıkış yapılırken hata oluştu");
-          }
+    showAlert({
+      title: t("settings.logout"),
+      message: t("settings.logout_confirm_message"),
+      buttons: [
+        { text: t("common.cancel"), style: "cancel" },
+        {
+          text: t("common.yes"),
+          onPress: async () => {
+            try {
+              await logout();
+              router.replace("/onboarding");
+            } catch (error) {
+              showAlert({ title: t("common.error"), message: t("settings.logout_error") });
+            }
+          },
         },
-      },
-    ]);
+      ],
+    });
   };
 
   const handleUpgradePremium = () => {
-    Alert.alert(
-      "🎉 Premium'a Yükselt",
-      "Premium üyelikle sınırsız fotoğraf depolama, AI asistanı ve detaylı raporlar elde edin.",
-      [
-        { text: t("common.cancel"), onPress: () => {} },
+    showAlert({
+      title: `🎉 ${t("settings.premium_modal_title")}`,
+      message: t("settings.premium_modal_message"),
+      buttons: [
+        { text: t("common.cancel"), style: "cancel" },
         {
-          text: "Satın Al (₺49.99/ay)",
+          text: t("settings.premium_buy_button"),
           onPress: async () => {
-            // Simulated purchase
             setIsPremium(true);
             await AsyncStorage.setItem("isPremium", JSON.stringify(true));
-            Alert.alert(
-              t("common.success"),
-              "Premium üyeliğe hoş geldiniz! Tüm özelliklere erişim sağlandı."
-            );
+            showAlert({
+              title: t("common.success"),
+              message: t("settings.premium_success_message"),
+            });
           },
         },
-      ]
-    );
+      ],
+    });
   };
 
   if (loading) {
@@ -176,43 +208,68 @@ export default function SettingsScreen() {
 
           {/* Language Selection */}
           <View className="bg-surface rounded-lg p-4 gap-4">
-            <Text className="text-lg font-semibold text-foreground">🌐 Dil Seçimi</Text>
-
-            <View className="flex-row gap-2">
-              <TouchableOpacity
-                onPress={() => handleChangeLanguage("tr")}
-                className={`flex-1 rounded-lg py-3 items-center border-2 ${
-                  i18n.language === "tr"
-                    ? "bg-primary border-primary"
-                    : "bg-background border-border"
-                }`}
-              >
-                <Text
-                  className={`font-semibold ${
-                    i18n.language === "tr" ? "text-white" : "text-foreground"
-                  }`}
-                >
-                  🇹🇷 Türkçe
+            <Text className="text-lg font-semibold text-foreground">🌐 {t("settings.language_label")}</Text>
+            <TouchableOpacity
+              onPress={() => setLanguageModalVisible(true)}
+              activeOpacity={0.7}
+              className="flex-row items-center justify-between rounded-lg py-3.5 px-4 bg-background/80"
+            >
+              <View className="flex-row items-center gap-3">
+                <Text className="text-2xl">{LANGUAGE_FLAGS[currentLanguage] ?? "🌐"}</Text>
+                <Text className="text-base font-medium text-foreground">
+                  {t(`settings.languages.${currentLanguage}`)}
                 </Text>
-              </TouchableOpacity>
+              </View>
+              <Text className="text-muted text-lg">›</Text>
+            </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => handleChangeLanguage("en")}
-                className={`flex-1 rounded-lg py-3 items-center border-2 ${
-                  i18n.language === "en"
-                    ? "bg-primary border-primary"
-                    : "bg-background border-border"
-                }`}
+            <Modal
+              visible={languageModalVisible}
+              transparent
+              animationType="fade"
+              onRequestClose={() => setLanguageModalVisible(false)}
+            >
+              <Pressable
+                className="flex-1 bg-black/50 justify-end"
+                onPress={() => setLanguageModalVisible(false)}
               >
-                <Text
-                  className={`font-semibold ${
-                    i18n.language === "en" ? "text-white" : "text-foreground"
-                  }`}
+                <Pressable
+                  onPress={(e) => e.stopPropagation()}
+                  style={{ backgroundColor: colors.background, borderTopLeftRadius: 20, borderTopRightRadius: 20, maxHeight: "70%" }}
                 >
-                  🇬🇧 English
-                </Text>
-              </TouchableOpacity>
-            </View>
+                  <View className="p-4 border-b border-border">
+                    <Text className="text-lg font-semibold text-foreground text-center">
+                      {t("settings.language_label")}
+                    </Text>
+                  </View>
+                  <FlatList
+                    data={[...SUPPORTED_LANGUAGES]}
+                    keyExtractor={(code) => code}
+                    renderItem={({ item: code }) => (
+                      <TouchableOpacity
+                        activeOpacity={0.7}
+                        onPress={() => handleChangeLanguage(code)}
+                        className="flex-row items-center gap-4 py-4 px-4 border-b border-border/50"
+                        style={{
+                          backgroundColor: code === currentLanguage ? `${colors.primary}12` : "transparent",
+                        }}
+                      >
+                        <Text className="text-2xl">{LANGUAGE_FLAGS[code] ?? "🌐"}</Text>
+                        <Text
+                          className="flex-1 text-base font-medium"
+                          style={{ color: colors.foreground }}
+                        >
+                          {t(`settings.languages.${code}`)}
+                        </Text>
+                        {code === currentLanguage && (
+                          <Text className="text-primary font-semibold">✓</Text>
+                        )}
+                      </TouchableOpacity>
+                    )}
+                  />
+                </Pressable>
+              </Pressable>
+            </Modal>
           </View>
 
           {/* Notification Preferences */}
@@ -222,8 +279,8 @@ export default function SettingsScreen() {
             <View className="gap-3">
               <View className="flex-row items-center justify-between">
                 <View className="flex-1">
-                  <Text className="text-foreground font-medium">💉 Aşı Hatırlatıcıları</Text>
-                  <Text className="text-xs text-muted">Yaklaşan aşılar için bildirim al</Text>
+                  <Text className="text-foreground font-medium">💉 {t("settings.notif_vaccine_reminders")}</Text>
+                  <Text className="text-xs text-muted">{t("settings.notif_vaccine_reminders_desc")}</Text>
                 </View>
                 <Switch
                   value={notificationSettings.vaccineReminders}
@@ -237,8 +294,8 @@ export default function SettingsScreen() {
 
               <View className="flex-row items-center justify-between">
                 <View className="flex-1">
-                  <Text className="text-foreground font-medium">🎉 Gelişim Başarıları</Text>
-                  <Text className="text-xs text-muted">Yeni kilometre taşları için bildirim al</Text>
+                  <Text className="text-foreground font-medium">🎉 {t("settings.notif_milestone_alerts")}</Text>
+                  <Text className="text-xs text-muted">{t("settings.notif_milestone_alerts_desc")}</Text>
                 </View>
                 <Switch
                   value={notificationSettings.milestoneAlerts}
@@ -252,8 +309,8 @@ export default function SettingsScreen() {
 
               <View className="flex-row items-center justify-between">
                 <View className="flex-1">
-                  <Text className="text-foreground font-medium">💡 Günlük İpuçları</Text>
-                  <Text className="text-xs text-muted">Ebeveynlik ipuçları ve tavsiyeleri</Text>
+                  <Text className="text-foreground font-medium">💡 {t("settings.notif_daily_tips")}</Text>
+                  <Text className="text-xs text-muted">{t("settings.notif_daily_tips_desc")}</Text>
                 </View>
                 <Switch
                   value={notificationSettings.dailyTips}
@@ -267,8 +324,8 @@ export default function SettingsScreen() {
 
               <View className="flex-row items-center justify-between">
                 <View className="flex-1">
-                  <Text className="text-foreground font-medium">📲 Push Bildirimleri</Text>
-                  <Text className="text-xs text-muted">Tüm bildirimleri etkinleştir/devre dışı bırak</Text>
+                  <Text className="text-foreground font-medium">📲 {t("settings.notif_push")}</Text>
+                  <Text className="text-xs text-muted">{t("settings.notif_push_desc")}</Text>
                 </View>
                 <Switch
                   value={notificationSettings.pushNotifications}

@@ -15,6 +15,28 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+const QUICK_ACCESS_ITEMS: { icon: string; label: string; path: string }[] = [
+  { icon: "📊", label: "Gelişim", path: "/growth-tracking" },
+  { icon: "💉", label: "Aşılar", path: "/vaccination-schedule" },
+  { icon: "🍽️", label: "Beslenme", path: "/nutrition-log" },
+  { icon: "😴", label: "Uyku", path: "/sleep-tracking" },
+  { icon: "🏥", label: "Sağlık", path: "/health-notes" },
+  { icon: "📸", label: "Anılar", path: "/memory-journal" },
+  { icon: "🤖", label: "AI Asistan", path: "/ai-assistant" },
+  { icon: "📋", label: "Raporlar", path: "/reports" },
+  { icon: "🛡️", label: "Çocuk Güvenliği", path: "/child-safety" },
+  { icon: "💬", label: "Topluluk", path: "/community-forum" },
+  { icon: "✅", label: "Günlük Görevler", path: "/daily-tasks" },
+  { icon: "📅", label: "Pediatrist", path: "/pediatrist-calendar" },
+  { icon: "🖼️", label: "Aile Albümü", path: "/family-album" },
+  { icon: "👤", label: "Profil", path: "/profile-management" },
+  { icon: "🏆", label: "Başarılar", path: "/achievements" },
+  { icon: "📖", label: "Tarifler", path: "/nutrition-recipes" },
+  { icon: "⭐", label: "Premium", path: "/subscription-purchase" },
+  { icon: "☁️", label: "Yedekleme", path: "/data-sync-settings" },
+  { icon: "🔔", label: "Bildirimler", path: "/advanced-notification-settings" },
+];
+
 export default function HomeScreen() {
   const { isAuthenticated, loading, user } = useAuth();
   const router = useRouter();
@@ -37,12 +59,12 @@ export default function HomeScreen() {
   }, [isAuthenticated, loading]);
 
   const handleAddChild = () => {
-    alert("Çocuk Ekleme - Yakında");
+    router.push("/profile-management");
   };
 
   const handleChildPress = (childId: number) => {
     setSelectedChildId(childId);
-    alert(`Çocuk Profili #${childId} - Yakında`);
+    router.push({ pathname: "/growth-tracking", params: { childId: String(childId) } });
   };
 
   if (loading || childrenLoading) {
@@ -69,7 +91,7 @@ export default function HomeScreen() {
               </Text>
             </View>
             <TouchableOpacity
-              onPress={() => alert("Ayarlar - Yakında")}
+              onPress={() => router.push("/(tabs)/settings")}
               className="w-10 h-10 rounded-full bg-surface items-center justify-center"
             >
               <Text className="text-lg">⚙️</Text>
@@ -116,27 +138,15 @@ export default function HomeScreen() {
           {/* Quick Actions */}
           <View className="gap-2">
             <Text className="text-lg font-semibold text-foreground">Hızlı Erişim</Text>
-            <View className="flex-row gap-2">
-              <QuickActionButton
-                icon="📊"
-                label="Gelişim"
-                onPress={() => alert("Gelişim Takibi - Yakında")}
-              />
-              <QuickActionButton
-                icon="💉"
-                label="Aşılar"
-                onPress={() => alert("Aşı Takvimi - Yakında")}
-              />
-              <QuickActionButton
-                icon="📸"
-                label="Anılar"
-                onPress={() => alert("Anı Defteri - Yakında")}
-              />
-              <QuickActionButton
-                icon="🤖"
-                label="AI Asistan"
-                onPress={() => alert("AI Asistan - Yakında")}
-              />
+            <View className="flex-row flex-wrap gap-2">
+              {QUICK_ACCESS_ITEMS.map((item) => (
+                <QuickActionButton
+                  key={item.path}
+                  icon={item.icon}
+                  label={item.label}
+                  onPress={() => router.push(item.path)}
+                />
+              ))}
             </View>
           </View>
 
@@ -222,6 +232,8 @@ function EmptyStateCard({ onAddChild }: { onAddChild: () => void }) {
   );
 }
 
+const QUICK_ACCESS_BUTTON_WIDTH = "31%"; // ~3 per row with gap
+
 function QuickActionButton({
   icon,
   label,
@@ -235,10 +247,11 @@ function QuickActionButton({
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      className="flex-1 bg-surface rounded-lg p-3 items-center gap-2"
+      className="bg-surface rounded-lg p-3 items-center gap-2"
+      style={{ width: QUICK_ACCESS_BUTTON_WIDTH }}
     >
       <Text className="text-2xl">{icon}</Text>
-      <Text className="text-xs text-foreground font-semibold text-center">{label}</Text>
+      <Text className="text-xs text-foreground font-semibold text-center" numberOfLines={2}>{label}</Text>
     </TouchableOpacity>
   );
 }

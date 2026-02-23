@@ -1,5 +1,6 @@
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
@@ -7,6 +8,7 @@ import { Platform, Text } from "react-native";
 import { useColors } from "@/hooks/use-colors";
 
 export default function TabLayout() {
+  const { t } = useTranslation();
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const bottomPadding = Platform.OS === "web" ? 12 : Math.max(insets.bottom, 8);
@@ -31,14 +33,21 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Dashboard",
+          title: t("tabs.home"),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: t("tabs.settings"),
+          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>⚙️</Text>,
         }}
       />
       <Tabs.Screen
         name="../growth-tracking"
         options={{
-          title: "Gelişim",
+          title: t("tabs.growth"),
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>📈</Text>,
           href: { pathname: "/growth-tracking", params: { childId: "1" } },
         }}
@@ -46,7 +55,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="../vaccination-schedule"
         options={{
-          title: "Aşı",
+          title: t("tabs.vaccination"),
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>💉</Text>,
           href: { pathname: "/vaccination-schedule", params: { childId: "1" } },
         }}
@@ -54,7 +63,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="../nutrition-log"
         options={{
-          title: "Beslenme",
+          title: t("tabs.nutrition"),
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>🍽️</Text>,
           href: { pathname: "/nutrition-log", params: { childId: "1" } },
         }}
@@ -62,7 +71,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="../sleep-tracking"
         options={{
-          title: "Uyku",
+          title: t("tabs.sleep"),
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>😴</Text>,
           href: { pathname: "/sleep-tracking", params: { childId: "1" } },
         }}
@@ -70,7 +79,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="../health-notes"
         options={{
-          title: "Sağlık",
+          title: t("tabs.health"),
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>🏥</Text>,
           href: { pathname: "/health-notes", params: { childId: "1" } },
         }}
@@ -78,7 +87,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="../memory-journal"
         options={{
-          title: "Anılar",
+          title: t("tabs.memories"),
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>📸</Text>,
           href: { pathname: "/memory-journal", params: { childId: "1" } },
         }}
@@ -86,7 +95,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="../ai-assistant"
         options={{
-          title: "AI",
+          title: t("tabs.ai"),
           tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>🤖</Text>,
           href: { pathname: "/ai-assistant", params: { childId: "1" } },
         }}

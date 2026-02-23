@@ -32,22 +32,22 @@ export function registerLocalAuthRoutes(app: import("express").Express) {
         name?: string;
       };
       if (!email || typeof email !== "string" || !password || typeof password !== "string") {
-        res.status(400).json({ error: "Email and password are required" });
+        res.status(400).json({ error: "Email and password are required", code: "EMAIL_PASSWORD_REQUIRED" });
         return;
       }
       const trimmedEmail = email.trim().toLowerCase();
       if (!trimmedEmail) {
-        res.status(400).json({ error: "Email is required" });
+        res.status(400).json({ error: "Email is required", code: "EMAIL_REQUIRED" });
         return;
       }
       if (password.length < 6) {
-        res.status(400).json({ error: "Password must be at least 6 characters" });
+        res.status(400).json({ error: "Password must be at least 6 characters", code: "PASSWORD_TOO_SHORT" });
         return;
       }
 
       const existing = await db.getUserByLocalEmail(trimmedEmail);
       if (existing) {
-        res.status(409).json({ error: "An account with this email already exists" });
+        res.status(409).json({ error: "An account with this email already exists", code: "EMAIL_ALREADY_EXISTS" });
         return;
       }
 
@@ -70,7 +70,7 @@ export function registerLocalAuthRoutes(app: import("express").Express) {
       const message = err instanceof Error ? err.message : String(err);
       const stack = err instanceof Error ? err.stack : undefined;
       console.error("[Auth] Register failed:", message, stack ?? "");
-      res.status(500).json({ error: "Registration failed" });
+      res.status(500).json({ error: "Registration failed", code: "REGISTRATION_FAILED" });
     }
   });
 
@@ -79,19 +79,19 @@ export function registerLocalAuthRoutes(app: import("express").Express) {
     try {
       const { email, password } = req.body as { email?: string; password?: string };
       if (!email || typeof email !== "string" || !password || typeof password !== "string") {
-        res.status(400).json({ error: "Email and password are required" });
+        res.status(400).json({ error: "Email and password are required", code: "EMAIL_PASSWORD_REQUIRED" });
         return;
       }
 
       const user = await db.getUserByLocalEmail(email.trim());
       if (!user || !user.passwordHash) {
-        res.status(401).json({ error: "Invalid email or password" });
+        res.status(401).json({ error: "Invalid email or password", code: "INVALID_EMAIL_OR_PASSWORD" });
         return;
       }
 
       const valid = await verifyPassword(password, user.passwordHash);
       if (!valid) {
-        res.status(401).json({ error: "Invalid email or password" });
+        res.status(401).json({ error: "Invalid email or password", code: "INVALID_EMAIL_OR_PASSWORD" });
         return;
       }
 
@@ -107,7 +107,7 @@ export function registerLocalAuthRoutes(app: import("express").Express) {
       const message = err instanceof Error ? err.message : String(err);
       const stack = err instanceof Error ? err.stack : undefined;
       console.error("[Auth] Login failed:", message, stack ?? "");
-      res.status(500).json({ error: "Login failed" });
+      res.status(500).json({ error: "Login failed", code: "LOGIN_FAILED" });
     }
   });
 

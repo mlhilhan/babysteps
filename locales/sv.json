@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "Följ din barns tillväxtresa"
   },
+  "tabs": {
+    "home": "Hem",
+    "settings": "Inställningar",
+    "growth": "Tillväxt",
+    "vaccination": "Vacciner",
+    "nutrition": "Nutrition",
+    "sleep": "Sömn",
+    "health": "Hälsa",
+    "memories": "Minnen",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "Välkommen",
     "subtitle": "Följ din barns tillväxtresa",
@@ -59,7 +70,8 @@
     "premium": "Uppgradera till Premium",
     "premium_desc": "Lås upp obegränsat fotolagring, AI-assistent och PDF-rapporter.",
     "upgrade": "Uppgradera till Premium",
-    "logout": "Logga ut"
+    "logout": "Logga ut",
+    "language_label": "Språk"
   },
   "add_child": {
     "title": "Lägg till barn",

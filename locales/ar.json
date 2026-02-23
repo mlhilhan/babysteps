@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "تتبع رحلة نمو طفلك"
   },
+  "tabs": {
+    "home": "الرئيسية",
+    "settings": "الإعدادات",
+    "growth": "النمو",
+    "vaccination": "التطعيم",
+    "nutrition": "التغذية",
+    "sleep": "النوم",
+    "health": "الصحة",
+    "memories": "الذكريات",
+    "ai": "ذكاء اصطناعي"
+  },
   "onboarding": {
     "welcome": "مرحباً",
     "subtitle": "تتبع رحلة نمو طفلك",
@@ -59,7 +70,8 @@
     "premium": "الترقية إلى بريميوم",
     "premium_desc": "فعّل التخزين غير المحدود للصور ومساعد الذكاء وتقارير PDF.",
     "upgrade": "الترقية إلى بريميوم",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "language_label": "اللغة"
   },
   "add_child": {
     "title": "إضافة طفل",

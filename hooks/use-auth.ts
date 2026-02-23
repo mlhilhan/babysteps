@@ -92,7 +92,7 @@ export function useAuth(options?: UseAuthOptions) {
   }, []);
 
   const login = useCallback(
-    async (email: string, password: string): Promise<{ error?: string }> => {
+    async (email: string, password: string): Promise<{ error?: string; code?: string }> => {
       try {
         setError(null);
         const { token, user: apiUser } = await Api.login(email, password);
@@ -103,8 +103,9 @@ export function useAuth(options?: UseAuthOptions) {
         return {};
       } catch (err) {
         const message = err instanceof Error ? err.message : "Giriş başarısız";
+        const code = (err as Error & { code?: string }).code;
         setError(err instanceof Error ? err : new Error(message));
-        return { error: message };
+        return { error: message, code };
       }
     },
     [],
@@ -115,7 +116,7 @@ export function useAuth(options?: UseAuthOptions) {
       email: string,
       password: string,
       name?: string,
-    ): Promise<{ error?: string }> => {
+    ): Promise<{ error?: string; code?: string }> => {
       try {
         setError(null);
         const { token, user: apiUser } = await Api.register(email, password, name);
@@ -126,8 +127,9 @@ export function useAuth(options?: UseAuthOptions) {
         return {};
       } catch (err) {
         const message = err instanceof Error ? err.message : "Kayıt başarısız";
+        const code = (err as Error & { code?: string }).code;
         setError(err instanceof Error ? err : new Error(message));
-        return { error: message };
+        return { error: message, code };
       }
     },
     [],

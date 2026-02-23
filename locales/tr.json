@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "Çocuğunuzun büyüme yolculuğunu takip edin"
   },
+  "tabs": {
+    "home": "Ana Sayfa",
+    "settings": "Ayarlar",
+    "growth": "Gelişim",
+    "vaccination": "Aşı",
+    "nutrition": "Beslenme",
+    "sleep": "Uyku",
+    "health": "Sağlık",
+    "memories": "Anılar",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "Hoş geldiniz",
     "subtitle": "Çocuğunuzun büyüme yolculuğunu takip edin",
@@ -51,6 +62,14 @@
     "preferences": "Tercihler",
     "dark_mode": "Koyu Mod",
     "notifications": "Bildirimler",
+    "notif_vaccine_reminders": "Aşı Hatırlatıcıları",
+    "notif_vaccine_reminders_desc": "Yaklaşan aşılar için bildirim al",
+    "notif_milestone_alerts": "Gelişim Başarıları",
+    "notif_milestone_alerts_desc": "Yeni kilometre taşları için bildirim al",
+    "notif_daily_tips": "Günlük İpuçları",
+    "notif_daily_tips_desc": "Ebeveynlik ipuçları ve tavsiyeleri",
+    "notif_push": "Push Bildirimleri",
+    "notif_push_desc": "Tüm bildirimleri etkinleştir veya devre dışı bırak",
     "backup": "Yedekleme",
     "about": "Hakkında",
     "version": "Sürüm",
@@ -59,7 +78,33 @@
     "premium": "Premium'a Yükselt",
     "premium_desc": "Sınırsız fotoğraf depolama, AI asistanı ve PDF raporlama özelliklerini açın.",
     "upgrade": "Premium'a Yükselt",
-    "logout": "Çıkış Yap"
+    "logout": "Çıkış Yap",
+    "language_label": "Dil",
+    "languages": {
+      "tr": "Türkçe",
+      "en": "English",
+      "ar": "العربية",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "it": "Italiano",
+      "ja": "日本語",
+      "ko": "한국어",
+      "nl": "Nederlands",
+      "pt": "Português",
+      "ru": "Русский",
+      "sv": "Svenska",
+      "zh": "中文"
+    },
+    "save_settings_error": "Ayarlar kaydedilirken hata oluştu.",
+    "language_change_error": "Dil değiştirilirken hata oluştu.",
+    "logout_confirm_message": "Çıkış yapmak istediğinizden emin misiniz?",
+    "logout_error": "Çıkış yapılırken hata oluştu.",
+    "premium_modal_title": "Premium'a Yükselt",
+    "premium_modal_message": "Premium üyelikle sınırsız fotoğraf depolama, AI asistanı ve detaylı raporlar elde edin.",
+    "premium_buy_button": "Satın Al (₺49.99/ay)",
+    "premium_success_message": "Premium üyeliğe hoş geldiniz! Tüm özelliklere erişim sağlandı."
   },
   "add_child": {
     "title": "Çocuk Ekle",
@@ -137,5 +182,41 @@
     "confirm": "Onayla",
     "yes": "Evet",
     "no": "Hayır"
+  },
+  "auth": {
+    "errors": {
+      "GENERIC": "Bir hata oluştu. Lütfen tekrar deneyin.",
+      "INVALID_EMAIL_OR_PASSWORD": "E-posta veya şifre hatalı.",
+      "EMAIL_PASSWORD_REQUIRED": "E-posta ve şifre gerekli.",
+      "EMAIL_REQUIRED": "E-posta girin.",
+      "PASSWORD_TOO_SHORT": "Şifre en az 6 karakter olmalı.",
+      "EMAIL_ALREADY_EXISTS": "Bu e-posta adresiyle kayıtlı bir hesap zaten var.",
+      "LOGIN_FAILED": "Giriş yapılamadı. Lütfen tekrar deneyin.",
+      "REGISTRATION_FAILED": "Kayıt oluşturulamadı. Lütfen tekrar deneyin."
+    },
+    "validation": {
+      "email_required": "E-posta girin",
+      "password_required": "Şifre girin",
+      "password_min_length": "Şifre en az 6 karakter olmalı"
+    },
+    "login": {
+      "title": "Giriş Yap",
+      "subtitle": "BabySteps hesabınızla giriş yapın",
+      "email_placeholder": "E-posta",
+      "password_placeholder": "Şifre",
+      "submit": "Giriş Yap",
+      "no_account": "Hesabınız yok mu?",
+      "sign_up": "Kayıt olun"
+    },
+    "register": {
+      "title": "Kayıt Ol",
+      "subtitle": "Yeni bir BabySteps hesabı oluşturun",
+      "email_placeholder": "E-posta",
+      "name_placeholder": "Ad (isteğe bağlı)",
+      "password_placeholder": "Şifre (en az 6 karakter)",
+      "submit": "Kayıt Ol",
+      "has_account": "Zaten hesabınız var mı?",
+      "sign_in": "Giriş yapın"
+    }
   }
 }

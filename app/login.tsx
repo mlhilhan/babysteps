@@ -1,6 +1,7 @@
 import { useAuth } from "@/hooks/use-auth";
 import { useColors } from "@/hooks/use-colors";
 import { ScreenContainer } from "@/components/screen-container";
+import { useTranslation } from "@/hooks/use-i18n";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import {
@@ -15,6 +16,7 @@ import {
 } from "react-native";
 
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const { login } = useAuth({ autoFetch: false });
   const colors = useColors();
   const router = useRouter();
@@ -44,18 +46,21 @@ export default function LoginScreen() {
     clearErrors();
     const trimmedEmail = email.trim();
     if (!trimmedEmail) {
-      setEmailError("E-posta girin");
+      setEmailError(t("auth.validation.email_required"));
       return;
     }
     if (!password) {
-      setPasswordError("Şifre girin");
+      setPasswordError(t("auth.validation.password_required"));
       return;
     }
     setSubmitting(true);
     const result = await login(trimmedEmail, password);
     setSubmitting(false);
     if (result.error) {
-      setSubmitError(result.error);
+      const message = result.code
+        ? t(`auth.errors.${result.code}`)
+        : t("auth.errors.GENERIC");
+      setSubmitError(message);
       return;
     }
     router.replace("/(tabs)");
@@ -71,13 +76,13 @@ export default function LoginScreen() {
         className="flex-1 justify-center px-6"
       >
         <View className="gap-6">
-          <Text className="text-2xl font-bold text-foreground text-center">Giriş Yap</Text>
-          <Text className="text-muted text-center">BabySteps hesabınızla giriş yapın</Text>
+          <Text className="text-2xl font-bold text-foreground text-center">{t("auth.login.title")}</Text>
+          <Text className="text-muted text-center">{t("auth.login.subtitle")}</Text>
 
           <View>
             <TextInput
               className={`bg-surface border rounded-xl px-4 py-3 text-foreground ${emailError ? "border-error" : "border-border"}`}
-              placeholder="E-posta"
+              placeholder={t("auth.login.email_placeholder")}
               placeholderTextColor={colors.muted}
               value={email}
               onChangeText={(v) => { setEmail(v); if (emailError) setEmailError(null); }}
@@ -92,11 +97,12 @@ export default function LoginScreen() {
           <View>
             <TextInput
               className={`bg-surface border rounded-xl px-4 py-3 text-foreground ${passwordError ? "border-error" : "border-border"}`}
-              placeholder="Şifre"
+              placeholder={t("auth.login.password_placeholder")}
               placeholderTextColor={colors.muted}
               value={password}
               onChangeText={(v) => { setPassword(v); if (passwordError) setPasswordError(null); }}
               secureTextEntry
+              autoCapitalize="none"
               autoComplete="password"
               editable={!submitting}
             />
@@ -116,7 +122,7 @@ export default function LoginScreen() {
             {submitting ? (
               <ActivityIndicator color="white" />
             ) : (
-              <Text className="text-white font-semibold text-base">Giriş Yap</Text>
+              <Text className="text-white font-semibold text-base">{t("auth.login.submit")}</Text>
             )}
           </TouchableOpacity>
 
@@ -140,9 +146,9 @@ export default function LoginScreen() {
           </View>
 
           <View className="flex-row justify-center gap-1">
-            <Text className="text-muted">Hesabınız yok mu?</Text>
+            <Text className="text-muted">{t("auth.login.no_account")}</Text>
             <TouchableOpacity onPress={() => router.replace("/register")}>
-              <Text className="text-primary font-semibold">Kayıt olun</Text>
+              <Text className="text-primary font-semibold">{t("auth.login.sign_up")}</Text>
             </TouchableOpacity>
           </View>
         </View>

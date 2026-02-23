@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "Verfolgen Sie die Wachstumsreise Ihres Kindes"
   },
+  "tabs": {
+    "home": "Start",
+    "settings": "Einstellungen",
+    "growth": "Wachstum",
+    "vaccination": "Impfung",
+    "nutrition": "Ernährung",
+    "sleep": "Schlaf",
+    "health": "Gesundheit",
+    "memories": "Erinnerungen",
+    "ai": "KI"
+  },
   "onboarding": {
     "welcome": "Willkommen",
     "subtitle": "Verfolgen Sie die Wachstumsreise Ihres Kindes",
@@ -59,7 +70,8 @@
     "premium": "Auf Premium upgraden",
     "premium_desc": "Unbegrenzte Fotospeicherung, KI-Assistent und PDF-Berichte freischalten.",
     "upgrade": "Auf Premium upgraden",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "language_label": "Sprache"
   },
   "add_child": {
     "title": "Kind hinzufügen",

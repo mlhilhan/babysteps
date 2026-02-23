@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "Track your child's growth journey"
   },
+  "tabs": {
+    "home": "Home",
+    "settings": "Settings",
+    "growth": "Growth",
+    "vaccination": "Vaccines",
+    "nutrition": "Nutrition",
+    "sleep": "Sleep",
+    "health": "Health",
+    "memories": "Memories",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "Welcome",
     "subtitle": "Track your child's growth journey",
@@ -51,6 +62,14 @@
     "preferences": "Preferences",
     "dark_mode": "Dark Mode",
     "notifications": "Notifications",
+    "notif_vaccine_reminders": "Vaccine Reminders",
+    "notif_vaccine_reminders_desc": "Get notified about upcoming vaccines",
+    "notif_milestone_alerts": "Milestone Alerts",
+    "notif_milestone_alerts_desc": "Get notified about new milestones",
+    "notif_daily_tips": "Daily Tips",
+    "notif_daily_tips_desc": "Parenting tips and advice",
+    "notif_push": "Push Notifications",
+    "notif_push_desc": "Enable or disable all notifications",
     "backup": "Backup",
     "about": "About",
     "version": "Version",
@@ -59,7 +78,33 @@
     "premium": "Upgrade to Premium",
     "premium_desc": "Unlock unlimited photo storage, AI assistant, and PDF reporting features.",
     "upgrade": "Upgrade to Premium",
-    "logout": "Sign Out"
+    "logout": "Sign Out",
+    "language_label": "Language",
+    "languages": {
+      "tr": "Türkçe",
+      "en": "English",
+      "ar": "Arabic",
+      "de": "German",
+      "es": "Spanish",
+      "fr": "French",
+      "hi": "Hindi",
+      "it": "Italian",
+      "ja": "Japanese",
+      "ko": "Korean",
+      "nl": "Dutch",
+      "pt": "Portuguese",
+      "ru": "Russian",
+      "sv": "Swedish",
+      "zh": "Chinese"
+    },
+    "save_settings_error": "Failed to save settings.",
+    "language_change_error": "Failed to change language.",
+    "logout_confirm_message": "Are you sure you want to sign out?",
+    "logout_error": "Failed to sign out.",
+    "premium_modal_title": "Upgrade to Premium",
+    "premium_modal_message": "Get unlimited photo storage, AI assistant and detailed reports with Premium.",
+    "premium_buy_button": "Subscribe (₺49.99/mo)",
+    "premium_success_message": "Welcome to Premium! You now have access to all features."
   },
   "add_child": {
     "title": "Add Child",
@@ -137,5 +182,41 @@
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No"
+  },
+  "auth": {
+    "errors": {
+      "GENERIC": "Something went wrong. Please try again.",
+      "INVALID_EMAIL_OR_PASSWORD": "Invalid email or password.",
+      "EMAIL_PASSWORD_REQUIRED": "Email and password are required.",
+      "EMAIL_REQUIRED": "Please enter your email.",
+      "PASSWORD_TOO_SHORT": "Password must be at least 6 characters.",
+      "EMAIL_ALREADY_EXISTS": "An account with this email already exists.",
+      "LOGIN_FAILED": "Login failed. Please try again.",
+      "REGISTRATION_FAILED": "Registration failed. Please try again."
+    },
+    "validation": {
+      "email_required": "Enter email",
+      "password_required": "Enter password",
+      "password_min_length": "Password must be at least 6 characters"
+    },
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Sign in with your BabySteps account",
+      "email_placeholder": "Email",
+      "password_placeholder": "Password",
+      "submit": "Sign In",
+      "no_account": "Don't have an account?",
+      "sign_up": "Sign up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "subtitle": "Create a new BabySteps account",
+      "email_placeholder": "Email",
+      "name_placeholder": "Name (optional)",
+      "password_placeholder": "Password (at least 6 characters)",
+      "submit": "Sign Up",
+      "has_account": "Already have an account?",
+      "sign_in": "Sign in"
+    }
   }
 }

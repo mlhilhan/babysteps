@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "记录宝宝的成长历程"
   },
+  "tabs": {
+    "home": "首页",
+    "settings": "设置",
+    "growth": "成长",
+    "vaccination": "疫苗",
+    "nutrition": "营养",
+    "sleep": "睡眠",
+    "health": "健康",
+    "memories": "回忆",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "欢迎",
     "subtitle": "记录宝宝的成长历程",
@@ -59,7 +70,8 @@
     "premium": "升级至 Premium",
     "premium_desc": "解锁无限照片存储、AI 助手与 PDF 报告。",
     "upgrade": "升级至 Premium",
-    "logout": "退出登录"
+    "logout": "退出登录",
+    "language_label": "语言"
   },
   "add_child": {
     "title": "添加孩子",

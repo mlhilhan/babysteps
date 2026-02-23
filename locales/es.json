@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "Sigue el crecimiento de tu hijo"
   },
+  "tabs": {
+    "home": "Inicio",
+    "settings": "Ajustes",
+    "growth": "Crecimiento",
+    "vaccination": "Vacunas",
+    "nutrition": "Nutrición",
+    "sleep": "Sueño",
+    "health": "Salud",
+    "memories": "Recuerdos",
+    "ai": "IA"
+  },
   "onboarding": {
     "welcome": "Bienvenido",
     "subtitle": "Sigue el crecimiento de tu hijo",
@@ -59,7 +70,8 @@
     "premium": "Pasar a Premium",
     "premium_desc": "Desbloquea almacenamiento ilimitado, asistente IA e informes en PDF.",
     "upgrade": "Pasar a Premium",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "language_label": "Idioma"
   },
   "add_child": {
     "title": "Añadir hijo",

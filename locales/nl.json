@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "Volg de groei van je kind"
   },
+  "tabs": {
+    "home": "Home",
+    "settings": "Instellingen",
+    "growth": "Groei",
+    "vaccination": "Vaccinaties",
+    "nutrition": "Voeding",
+    "sleep": "Slaap",
+    "health": "Gezondheid",
+    "memories": "Herinneringen",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "Welkom",
     "subtitle": "Volg de groei van je kind",
@@ -59,7 +70,8 @@
     "premium": "Upgrade naar Premium",
     "premium_desc": "Ontgrendel onbeperkte fotopslag, AI-assistent en PDF-rapportage.",
     "upgrade": "Upgrade naar Premium",
-    "logout": "Uitloggen"
+    "logout": "Uitloggen",
+    "language_label": "Taal"
   },
   "add_child": {
     "title": "Kind toevoegen",

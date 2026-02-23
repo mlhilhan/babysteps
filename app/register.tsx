@@ -1,6 +1,7 @@
 import { useAuth } from "@/hooks/use-auth";
 import { useColors } from "@/hooks/use-colors";
 import { ScreenContainer } from "@/components/screen-container";
+import { useTranslation } from "@/hooks/use-i18n";
 import { useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import {
@@ -16,6 +17,7 @@ import {
 } from "react-native";
 
 export default function RegisterScreen() {
+  const { t } = useTranslation();
   const { register } = useAuth({ autoFetch: false });
   const colors = useColors();
   const router = useRouter();
@@ -46,22 +48,25 @@ export default function RegisterScreen() {
     clearErrors();
     const trimmedEmail = email.trim();
     if (!trimmedEmail) {
-      setEmailError("E-posta girin");
+      setEmailError(t("auth.validation.email_required"));
       return;
     }
     if (!password) {
-      setPasswordError("Şifre girin");
+      setPasswordError(t("auth.validation.password_required"));
       return;
     }
     if (password.length < 6) {
-      setPasswordError("Şifre en az 6 karakter olmalı");
+      setPasswordError(t("auth.validation.password_min_length"));
       return;
     }
     setSubmitting(true);
     const result = await register(trimmedEmail, password, name.trim() || undefined);
     setSubmitting(false);
     if (result.error) {
-      setSubmitError(result.error);
+      const message = result.code
+        ? t(`auth.errors.${result.code}`)
+        : t("auth.errors.GENERIC");
+      setSubmitError(message);
       return;
     }
     router.replace("/(tabs)");
@@ -79,13 +84,13 @@ export default function RegisterScreen() {
           className="px-6 py-8"
         >
           <View className="gap-6">
-            <Text className="text-2xl font-bold text-foreground text-center">Kayıt Ol</Text>
-            <Text className="text-muted text-center">Yeni bir BabySteps hesabı oluşturun</Text>
+            <Text className="text-2xl font-bold text-foreground text-center">{t("auth.register.title")}</Text>
+            <Text className="text-muted text-center">{t("auth.register.subtitle")}</Text>
 
             <View>
               <TextInput
                 className={`bg-surface border rounded-xl px-4 py-3 text-foreground ${emailError ? "border-error" : "border-border"}`}
-                placeholder="E-posta"
+                placeholder={t("auth.register.email_placeholder")}
                 placeholderTextColor={colors.muted}
                 value={email}
                 onChangeText={(v) => { setEmail(v); if (emailError) setEmailError(null); }}
@@ -99,7 +104,7 @@ export default function RegisterScreen() {
 
             <TextInput
               className="bg-surface border border-border rounded-xl px-4 py-3 text-foreground"
-              placeholder="Ad (isteğe bağlı)"
+              placeholder={t("auth.register.name_placeholder")}
               placeholderTextColor={colors.muted}
               value={name}
               onChangeText={setName}
@@ -110,11 +115,12 @@ export default function RegisterScreen() {
             <View>
               <TextInput
                 className={`bg-surface border rounded-xl px-4 py-3 text-foreground ${passwordError ? "border-error" : "border-border"}`}
-                placeholder="Şifre (en az 6 karakter)"
+                placeholder={t("auth.register.password_placeholder")}
                 placeholderTextColor={colors.muted}
                 value={password}
                 onChangeText={(v) => { setPassword(v); if (passwordError) setPasswordError(null); }}
                 secureTextEntry
+                autoCapitalize="none"
                 autoComplete="password-new"
                 editable={!submitting}
               />
@@ -134,14 +140,14 @@ export default function RegisterScreen() {
               {submitting ? (
                 <ActivityIndicator color="white" />
               ) : (
-                <Text className="text-white font-semibold text-base">Kayıt Ol</Text>
+                <Text className="text-white font-semibold text-base">{t("auth.register.submit")}</Text>
               )}
             </TouchableOpacity>
 
             <View className="flex-row justify-center gap-1">
-              <Text className="text-muted">Zaten hesabınız var mı?</Text>
+              <Text className="text-muted">{t("auth.register.has_account")}</Text>
               <TouchableOpacity onPress={() => router.replace("/login")}>
-                <Text className="text-primary font-semibold">Giriş yapın</Text>
+                <Text className="text-primary font-semibold">{t("auth.register.sign_in")}</Text>
               </TouchableOpacity>
             </View>
           </View>

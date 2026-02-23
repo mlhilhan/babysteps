@@ -487,6 +487,24 @@ export const appRouter = router({
           autoRenew: input.autoRenew,
         });
       }),
+
+    update: protectedProcedure
+      .input(
+        z.object({
+          plan: z.enum(["free", "premium", "premium_plus"]).optional(),
+          autoRenew: z.boolean().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const sub = await db.getUserSubscription(ctx.user.id);
+        if (!sub) return null;
+        const updates: Parameters<typeof db.updateSubscription>[1] = {};
+        if (input.plan !== undefined) updates.plan = input.plan;
+        if (input.autoRenew !== undefined) updates.autoRenew = input.autoRenew;
+        if (Object.keys(updates).length === 0) return sub;
+        await db.updateSubscription(sub.id, updates);
+        return db.getUserSubscription(ctx.user.id);
+      }),
   }),
 });
 

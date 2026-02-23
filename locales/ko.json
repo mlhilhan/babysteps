@@ -3,6 +3,17 @@
     "name": "BabySteps",
     "tagline": "아이의 성장 과정을 기록하세요"
   },
+  "tabs": {
+    "home": "홈",
+    "settings": "설정",
+    "growth": "성장",
+    "vaccination": "예방접종",
+    "nutrition": "영양",
+    "sleep": "수면",
+    "health": "건강",
+    "memories": "추억",
+    "ai": "AI"
+  },
   "onboarding": {
     "welcome": "환영합니다",
     "subtitle": "아이의 성장 과정을 기록하세요",
@@ -59,7 +70,8 @@
     "premium": "Premium 업그레이드",
     "premium_desc": "무제한 사진 저장, AI 어시스턴트, PDF 리포트를 이용하세요.",
     "upgrade": "Premium 업그레이드",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "language_label": "언어"
   },
   "add_child": {
     "title": "아이 추가",
